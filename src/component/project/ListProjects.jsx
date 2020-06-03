@@ -55,49 +55,51 @@ class ListProjects extends Component {
                 <h3>Projects</h3>
                 {this.state.loading ? (<ReactLoading className="loader" type={"bars"} color={"#b056d6"}/>
                 ) : (
-                    <table className="table">
-                        <thead className="table-head">
-                        <tr>
-                            <th>Name</th>
-                            <th>Cost</th>
-                            <th>Department</th>
-                            <th>Date begin</th>
-                            <th>Date end</th>
-                            <th>Date end real</th>
-                            <th>Update</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            this.state.projects.map(
-                                project =>
-                                    <tr key={project.id}>
-                                        <td>{project.name}</td>
-                                        <td>{project.cost}💲</td>
-                                        <td>{project.department == null ? "-" : project.department.name}</td>
-                                        <td>{project.dateBegin}</td>
-                                        <td>{project.dateEnd}</td>
-                                        <td>{project.dateEndReal}</td>
-                                        <td>
-                                            <button className="btn btn-outline-light"
-                                                    onClick={() => this.updateProjectClicked(project.id)}>Update
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button className="btn btn-outline-light"
-                                                    onClick={() => this.deleteProjectClicked(project.id)}>Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                            )
-                        }
-                        </tbody>
-                    </table>
+                    <div>
+                        <table className="table">
+                            <thead className="table-head">
+                            <tr>
+                                <th>Name</th>
+                                <th>Cost</th>
+                                <th>Department</th>
+                                <th>Date begin</th>
+                                <th>Date end</th>
+                                <th>Date end real</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                this.state.projects.map(
+                                    project =>
+                                        <tr key={project.id}>
+                                            <td>{project.name}</td>
+                                            <td>{project.cost}💲</td>
+                                            <td>{project.department == null ? "-" : project.department.name}</td>
+                                            <td>{project.dateBegin}</td>
+                                            <td>{project.dateEnd}</td>
+                                            <td>{project.dateEndReal}</td>
+                                            <td>
+                                                <button className="btn btn-outline-light"
+                                                        onClick={() => this.updateProjectClicked(project.id)}>Update
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button className="btn btn-outline-light"
+                                                        onClick={() => this.deleteProjectClicked(project.id)}>Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                )
+                            }
+                            </tbody>
+                        </table>
+                        <div className="row">
+                            <button className="btn btn-outline-light" onClick={this.addProjectClicked}>Add</button>
+                        </div>
+                    </div>
                 )}
-                <div className="row">
-                    <button className="btn btn-outline-light" onClick={this.addProjectClicked}>Add</button>
-                </div>
             </div>
         )
     }
