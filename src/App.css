@@ -95,6 +95,14 @@ td {
     border-color: #ff3333;
 }
 
+.loader {
+    background-color: #36393f !important;
+    color: #b056d6 !important;
+    height: 87vh !important;
+    width: 100vw !important;
+    text-align-all: center !important;
+    align-content: center !important;
+}
 
 .App-logo {
     height: 40vmin;
