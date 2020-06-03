@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Field, Form, Formik} from 'formik';
 import AuthService from "../../service/AuthService";
 import * as Yup from "yup";
+import LoadingSpinner from "../home/LoadingSpinner";
 
 class SignInForm extends Component {
 
@@ -11,6 +12,7 @@ class SignInForm extends Component {
             username: "",
             password: "",
             message: "",
+            loading: false
         };
         this.onSubmit = this.onSubmit.bind(this)
     }
@@ -20,6 +22,7 @@ class SignInForm extends Component {
     }
 
     onSubmit(values) {
+        this.setState({loading: true})
         this.setState({message: ''})
         let user = {
             username: values.username,
@@ -32,6 +35,7 @@ class SignInForm extends Component {
                 window.location.reload();
             },
             error => {
+                this.setState({loading: false})
                 const resMessage =
                     (error.response &&
                         error.response.data &&
@@ -58,7 +62,7 @@ class SignInForm extends Component {
     });
 
     render() {
-        let {message, username, password} = this.state
+        let {loading, message, username, password} = this.state
         return (
             <div className="form">
                 <h1>Sign in</h1>
@@ -103,6 +107,7 @@ class SignInForm extends Component {
                         }
                     </Formik>
                 </div>
+                {loading ? <LoadingSpinner /> : null}
             </div>
         )
     }
