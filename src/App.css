@@ -18,7 +18,8 @@
 
 .main-container {
     background-color: #36393f;
-    height: 87vh;
+    min-height: 87vh;
+    height: auto;
     padding-bottom: 5vh;
 }
 
