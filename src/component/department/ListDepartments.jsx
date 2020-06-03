@@ -37,7 +37,6 @@ class ListDepartments extends Component {
         DepartmentDataService.deleteDepartment(id)
             .then(
                 response => {
-                    this.setState({message: `Deletion of department with id ${id} Successful`})
                     this.refreshDepartments()
                 },
                 error => {
