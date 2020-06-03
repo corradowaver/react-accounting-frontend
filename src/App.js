@@ -3,8 +3,6 @@ import './App.css';
 
 import AccountingApp from './component/AccountingApp';
 
-const PORT = process.env.PORT
-
 class App extends Component {
     render() {
         return (
