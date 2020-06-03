@@ -7,7 +7,7 @@ class ListProjects extends Component {
         super(props)
         this.state = {
             projects: [],
-            message: null
+            message: ''
         }
         this.addProjectClicked = this.addProjectClicked.bind(this)
         this.deleteProjectClicked = this.deleteProjectClicked.bind(this)

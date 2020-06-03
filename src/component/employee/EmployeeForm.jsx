@@ -47,7 +47,7 @@ class EmployeeForm extends Component {
     }
 
     onSubmit(values) {
-        this.state.message = ''
+        this.setState({message: ''})
         let employee = {
             username: values.username,
             password: values.password,
@@ -125,7 +125,7 @@ class EmployeeForm extends Component {
     });
 
     render() {
-        let {id, username, password, firstName, lastName, fatherName, position, salary, department} = this.state
+        let {message, id, username, password, firstName, lastName, fatherName, position, salary, department} = this.state
 
         return (
             <div className="form">
@@ -151,10 +151,10 @@ class EmployeeForm extends Component {
                         {
                             ({errors}) => (
                                 <Form>
-                                    {this.state.message && (
+                                    {message && (
                                         <div className="form-group">
                                             <div className="alert alert-danger" role="alert">
-                                                {this.state.message}
+                                                {message}
                                             </div>
                                         </div>
                                     )}

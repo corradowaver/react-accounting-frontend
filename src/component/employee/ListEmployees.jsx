@@ -8,7 +8,7 @@ class ListEmployeesComponent extends Component {
         super(props)
         this.state = {
             employees: [],
-            message: null
+            message: ''
         }
         this.addEmployeeClicked = this.addEmployeeClicked.bind(this)
     }
@@ -18,10 +18,11 @@ class ListEmployeesComponent extends Component {
     }
 
     render() {
+        let {message} = this.state
         return (
             <div className="list-container">
                 <h3 color="#d870e8">Employees</h3>
-                {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
+                {message && <div className="alert alert-success">{message}</div>}
                 <EmployeesComponent id="all"/>
                 <div className="row">
                     <button className="btn btn-outline-light" onClick={this.addEmployeeClicked}>Add</button>

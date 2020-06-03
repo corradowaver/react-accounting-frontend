@@ -39,7 +39,7 @@ class ProjectForm extends Component {
     }
 
     onSubmit(values) {
-        this.state.message = ''
+        this.setState({message: ''})
         let project = {
             name: values.name,
             cost: values.cost,
@@ -124,7 +124,7 @@ class ProjectForm extends Component {
     })
 
     render() {
-        let {id, name, cost, department, dateBegin, dateEnd, dateEndReal} = this.state
+        let {message, id, name, cost, department, dateBegin, dateEnd, dateEndReal} = this.state
 
         return (
             <div className="form">
@@ -144,7 +144,7 @@ class ProjectForm extends Component {
                                     {this.state.message && (
                                         <div className="form-group">
                                             <div className="alert alert-danger" role="alert">
-                                                {this.state.message}
+                                                {message}
                                             </div>
                                         </div>
                                     )}

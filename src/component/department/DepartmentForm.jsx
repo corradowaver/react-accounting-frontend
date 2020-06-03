@@ -30,7 +30,7 @@ class DepartmentForm extends Component {
 
     onSubmit(values) {
         let department = {name: values.name}
-        this.state.mesage = ''
+        this.setState({message: ''})
         if (this.state.id === "new") {
             console.log(department)
             DepartmentDataService.createDepartment(department)
@@ -73,7 +73,7 @@ class DepartmentForm extends Component {
     });
 
     render() {
-        let {id, name} = this.state
+        let {message, id, name} = this.state
 
         return (
             <div className="form">
@@ -89,10 +89,10 @@ class DepartmentForm extends Component {
                         {
                             ({errors}) => (
                                 <Form>
-                                    {this.state.message && (
+                                    {message && (
                                         <div className="form-group">
                                             <div className="alert alert-danger" role="alert">
-                                                {this.state.message}
+                                                {message}
                                             </div>
                                         </div>
                                     )}

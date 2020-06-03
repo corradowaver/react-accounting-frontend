@@ -10,7 +10,7 @@ class EmployeesComponent extends Component {
         this.state = {
             id: props.id,
             employees: [],
-            message: null
+            message: ''
         }
         this.deleteEmployeeClicked = this.deleteEmployeeClicked.bind(this)
         this.updateEmployeeClicked = this.updateEmployeeClicked.bind(this)

@@ -10,7 +10,7 @@ class SignInForm extends Component {
         this.state = {
             username: "",
             password: "",
-            message: ""
+            message: "",
         };
         this.onSubmit = this.onSubmit.bind(this)
     }
@@ -20,13 +20,14 @@ class SignInForm extends Component {
     }
 
     onSubmit(values) {
-        this.state.message = ''
+        this.setState({message: ''})
         let user = {
             username: values.username,
             password: values.password
         }
         AuthService.login(user).then(
             () => {
+                this.setState({loading: false})
                 this.props.history.push("/profile");
                 window.location.reload();
             },
@@ -57,7 +58,7 @@ class SignInForm extends Component {
     });
 
     render() {
-        let {username, password} = this.state
+        let {message, username, password} = this.state
         return (
             <div className="form">
                 <h1>Sign in</h1>
@@ -89,10 +90,10 @@ class SignInForm extends Component {
                                         <div className="alert alert-danger" role="alert">
                                             {errors.password}
                                         </div>)}
-                                    {this.state.message && (
+                                    {message && (
                                         <div className="form-group">
                                             <div className="alert alert-danger" role="alert">
-                                                {this.state.message}
+                                                {message}
                                             </div>
                                         </div>
                                     )}

@@ -29,7 +29,7 @@ class ListDepartments extends Component {
     }
 
     deleteDepartmentClicked(id) {
-        this.state.message = ''
+        this.setState({message: ''})
         DepartmentDataService.deleteDepartment(id)
             .then(
                 response => {
