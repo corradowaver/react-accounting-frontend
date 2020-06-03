@@ -65,7 +65,7 @@ class SignInForm extends Component {
         let {loading, message, username, password} = this.state
         return (
             <div>
-                {loading ? (<ReactLoading className="loader" type={"bars"}/>
+                {loading ? (<ReactLoading className="loader" type={"bars"} color={"#b056d6"}/>
                 ) : (
                     <div className="form">
                         <h1>Sign in</h1>
