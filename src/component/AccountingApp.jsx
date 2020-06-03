@@ -99,7 +99,7 @@ class AccountingApp extends Component {
                     <div className="main-container">
                         <Switch>
                             <Route path="/profile" exact component={Profile}/>
-                            <Route path="/" exact component={HomeComponent}/>
+                            <Route path="https://react-accounting-client.herokuapp.com/" exact component={HomeComponent}/>
                             <Route path="/signin" exact component={SignInForm}/>
                             <Route path="/employees" exact component={ListEmployeesComponent}/>
                             <Route path="/employees/:id" component={EmployeeForm}/>
