@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Field, Form, Formik} from 'formik';
 import DepartmentDataService from "../../service/DepartmentDataService";
 import * as Yup from 'yup';
+import ReactLoading from "react-loading";
 
 class DepartmentForm extends Component {
 
@@ -10,14 +11,14 @@ class DepartmentForm extends Component {
         this.state = {
             id: this.props.match.params.id,
             name: '',
-            message: ''
+            message: '',
+            loading: false
         }
 
         this.onSubmit = this.onSubmit.bind(this)
     }
 
     componentDidMount() {
-
         if (this.state.id === "new") {
 
         } else {
@@ -30,12 +31,17 @@ class DepartmentForm extends Component {
 
     onSubmit(values) {
         let department = {name: values.name}
+        this.setState({loading: true})
         this.setState({message: ''})
         if (this.state.id === "new") {
             console.log(department)
             DepartmentDataService.createDepartment(department)
-                .then(() => this.props.history.push('/departments'),
+                .then(() => {
+                        this.setState({loading: false})
+                        this.props.history.push('/departments')
+                    },
                     error => {
+                        this.setState({loading: false})
                         const resMessage =
                             (error.response &&
                                 error.response.data &&
@@ -49,8 +55,12 @@ class DepartmentForm extends Component {
                     })
         } else {
             DepartmentDataService.updateDepartment(this.state.id, department)
-                .then(() => this.props.history.push('/departments'),
+                .then(() => {
+                        this.setState({loading: false})
+                    this.props.history.push('/departments')
+                    },
                     error => {
+                        this.setState({loading: false})
                         const resMessage =
                             (error.response &&
                                 error.response.data &&
@@ -73,43 +83,46 @@ class DepartmentForm extends Component {
     });
 
     render() {
-        let {message, id, name} = this.state
+        let {loading, message, id, name} = this.state
 
         return (
             <div className="form">
                 <h3>Department details</h3>
-                <div className="formik">
-                    <Formik
-                        initialValues={{id, name}}
-                        onSubmit={this.onSubmit}
-                        validationSchema={this.departmentSchema}
-                        validateOnChange={false}
-                        validateOnBlur={false}
-                        enableReinitialize={true}>
-                        {
-                            ({errors}) => (
-                                <Form>
-                                    {message && (
-                                        <div className="form-group">
-                                            <div className="alert alert-danger" role="alert">
-                                                {message}
+                {loading ? (<ReactLoading className="loader" type={"bars"} color={"#b056d6"}/>
+                ) : (
+                    <div className="formik">
+                        <Formik
+                            initialValues={{id, name}}
+                            onSubmit={this.onSubmit}
+                            validationSchema={this.departmentSchema}
+                            validateOnChange={false}
+                            validateOnBlur={false}
+                            enableReinitialize={true}>
+                            {
+                                ({errors}) => (
+                                    <Form>
+                                        {message && (
+                                            <div className="form-group">
+                                                <div className="alert alert-danger" role="alert">
+                                                    {message}
+                                                </div>
                                             </div>
-                                        </div>
-                                    )}
-                                    <fieldset className="form-group">
-                                        <label>Name</label>
-                                        <Field className="form-control" type="text" name="name"/>
-                                    </fieldset>
-                                    {errors.name && (
-                                        <div className="alert alert-danger" role="alert">
-                                            {errors.name}
-                                        </div>)}
-                                    <button className="btn btn-outline-light" type="submit">Save</button>
-                                </Form>
-                            )
-                        }
-                    </Formik>
-                </div>
+                                        )}
+                                        <fieldset className="form-group">
+                                            <label>Name</label>
+                                            <Field className="form-control" type="text" name="name"/>
+                                        </fieldset>
+                                        {errors.name && (
+                                            <div className="alert alert-danger" role="alert">
+                                                {errors.name}
+                                            </div>)}
+                                        <button className="btn btn-outline-light" type="submit">Save</button>
+                                    </Form>
+                                )
+                            }
+                        </Formik>
+                    </div>
+                )}
             </div>
         )
     }

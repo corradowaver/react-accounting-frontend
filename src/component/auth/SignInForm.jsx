@@ -65,10 +65,10 @@ class SignInForm extends Component {
         let {loading, message, username, password} = this.state
         return (
             <div>
-                {loading ? (<ReactLoading className="loader" type={"bars"} color={"#b056d6"}/>
-                ) : (
                     <div className="form">
                         <h1>Sign in</h1>
+                        {loading ? (<ReactLoading className="loader" type={"bars"} color={"#b056d6"}/>
+                        ) : (
                         <div className="signin-form">
                             <Formik
                                 initialValues={{username, password}}
@@ -110,8 +110,8 @@ class SignInForm extends Component {
                                 }
                             </Formik>
                         </div>
+                            )}
                     </div>
-                )}
             </div>
         )
     }

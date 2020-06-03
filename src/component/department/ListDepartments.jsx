@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import DepartmentDataService from "../../service/DepartmentDataService";
 import EmployeesComponent from "../employee/Employees";
+import ReactLoading from "react-loading";
 
 class ListDepartments extends Component {
 
@@ -8,7 +9,8 @@ class ListDepartments extends Component {
         super(props)
         this.state = {
             departments: [],
-            message: ''
+            message: '',
+            loading: false
         }
         this.addDepartmentClicked = this.addDepartmentClicked.bind(this)
         this.deleteDepartmentClicked = this.deleteDepartmentClicked.bind(this)
@@ -20,9 +22,11 @@ class ListDepartments extends Component {
     }
 
     refreshDepartments() {
+        this.setState({loading: true})
         DepartmentDataService.retrieveAllDepartments()
             .then(
                 response => {
+                    this.setState({loading: false})
                     this.setState({departments: response.data})
                 }
             )
@@ -62,45 +66,50 @@ class ListDepartments extends Component {
         return (
             <div className="list-container">
                 <h3>Departments</h3>
-                {this.state.message && (
-                    <div className="alert alert-danger" role="alert">
-                        {this.state.message}
+                {this.state.loading ? (<ReactLoading className="loader" type={"bars"} color={"#b056d6"}/>
+                ) : (
+                    <div>
+                        {this.state.message && (
+                            <div className="alert alert-danger" role="alert">
+                                {this.state.message}
+                            </div>
+                        )}
+                        <table className="table">
+                            <thead className="table-head">
+                            <tr>
+                                <th>Name</th>
+                                <th>Employees</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                this.state.departments.map(
+                                    department =>
+                                        <tr key={department.id}>
+                                            <td><h6>{department.name}</h6></td>
+                                            <td><EmployeesComponent id={department.id}/></td>
+                                            <td>
+                                                <button className="btn btn-outline-light"
+                                                        onClick={() => this.updateDepartmentClicked(department.id)}>Update
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button className="btn btn-outline-light    "
+                                                        onClick={() => this.deleteDepartmentClicked(department.id)}>Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                )
+                            }
+                            </tbody>
+                        </table>
+                        <div className="row">
+                            <button className="btn  btn-outline-light" onClick={this.addDepartmentClicked}>Add</button>
+                        </div>
                     </div>
                 )}
-                <table className="table">
-                    <thead className="table-head">
-                    <tr>
-                        <th>Name</th>
-                        <th>Employees</th>
-                        <th>Update</th>
-                        <th>Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        this.state.departments.map(
-                            department =>
-                                <tr key={department.id}>
-                                    <td><h6>{department.name}</h6></td>
-                                    <td><EmployeesComponent id={department.id}/></td>
-                                    <td>
-                                        <button className="btn btn-outline-light"
-                                                onClick={() => this.updateDepartmentClicked(department.id)}>Update
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button className="btn btn-outline-light    "
-                                                onClick={() => this.deleteDepartmentClicked(department.id)}>Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                        )
-                    }
-                    </tbody>
-                </table>
-                <div className="row">
-                    <button className="btn  btn-outline-light" onClick={this.addDepartmentClicked}>Add</button>
-                </div>
             </div>
         )
     }
